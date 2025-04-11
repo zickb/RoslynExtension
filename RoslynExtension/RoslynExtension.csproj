@@ -9,20 +9,21 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Reference Include="Microsoft.CodeAnalysis.dll">
-      <HintPath>../../roslyn/artifacts/bin/Microsoft.CodeAnalysis.LanguageServer/Debug/net9.0/Microsoft.CodeAnalysis.dll</HintPath>
+    <PackageReference Include="Microsoft.CodeAnalysis.Features" Version="4.13.0">
       <Private>false</Private>
       <ExcludeAssets>runtime</ExcludeAssets>
-    </Reference>
-    <Reference Include="Microsoft.CodeAnalysis.Features.dll">
-      <HintPath>../../roslyn/artifacts/bin/Microsoft.CodeAnalysis.LanguageServer/Debug/net9.0/Microsoft.CodeAnalysis.Features.dll</HintPath>
-      <Private>false</Private>
-      <ExcludeAssets>runtime</ExcludeAssets>
-    </Reference>
+    </PackageReference>
     <PackageReference Include="System.Composition" Version="9.0.0">
       <Private>false</Private>
       <ExcludeAssets>runtime</ExcludeAssets>
     </PackageReference>
+    <PackageReference Include="IgnoresAccessChecksToGenerator" Version="0.8.0">
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <IgnoresAccessChecksTo Include="Microsoft.CodeAnalysis.Features" />
   </ItemGroup>
 
 </Project>
