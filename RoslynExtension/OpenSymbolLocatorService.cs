@@ -11,7 +11,7 @@ namespace RoslynExtension;
 
 [Export(typeof(ISourceLinkService)), Shared]
 [method: ImportingConstructor]
-public class OpenSymbolLocatorService() : ISourceLinkService
+internal sealed class OpenSymbolLocatorService() : ISourceLinkService
 {
     public async Task<PdbFilePathResult?> GetPdbFilePathAsync(string dllPath, PEReader peReader, bool useDefaultSymbolServers, CancellationToken cancellationToken)
     {
