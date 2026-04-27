@@ -5,13 +5,24 @@ using System.Reflection.PortableExecutable;
 using System.Runtime.InteropServices;
 using System.Security.Cryptography;
 using System.Text;
+using Microsoft.CodeAnalysis.Host;
+using Microsoft.CodeAnalysis.Host.Mef;
 using Microsoft.CodeAnalysis.PdbSourceDocument;
 
 namespace RoslynExtension;
 
-[Export(typeof(ISourceLinkService)), Shared]
+[ExportWorkspaceServiceFactory(typeof(ISourceLinkService), ServiceLayer.Host), Shared]
 [method: ImportingConstructor]
-internal sealed class OpenSymbolLocatorService() : ISourceLinkService
+[method: Obsolete("This exported object must be obtained through the MEF export provider.", error: true)]
+internal sealed class VSCodeSourceLinkServiceFactory() : IWorkspaceServiceFactory
+{
+    // Maybe in the future we can add configuration options to the factory and pass them to the service
+    public IWorkspaceService CreateService(HostWorkspaceServices workspaceServices) => new OpenSymbolLocatorService();
+}
+
+[Export(typeof(ISourceLinkService)), Shared] // Remove this in the future if the vs code c# extension uses the new roslyn version
+[method: ImportingConstructor] // Remove this in the future if the vs code c# extension uses the new roslyn version
+internal sealed class OpenSymbolLocatorService() : ISourceLinkService, IWorkspaceService // Remove this in the future if a new Microsoft.CodeAnalysis.Features is released (there ISourceLinkService implements IWorkspaceService)
 {
     public async Task<PdbFilePathResult?> GetPdbFilePathAsync(string dllPath, PEReader peReader, bool useDefaultSymbolServers, CancellationToken cancellationToken)
     {
