@@ -258,7 +258,7 @@ internal static class RoslynSymbolStoreClient
                 {
                     // Restore the pdb Id
                     Array.Copy(pdbId, 0, bytes, offset, pdbIdSize);
-                    // Restore the steam position
+                    // Restore the stream position
                     pdbStream.Seek(0, SeekOrigin.Begin);
 
                     return true;
@@ -269,7 +269,7 @@ internal static class RoslynSymbolStoreClient
 
             // Restore the pdb Id
             Array.Copy(pdbId, 0, bytes, offset, pdbIdSize);
-            // Restore the steam position
+            // Restore the stream position
             pdbStream.Seek(0, SeekOrigin.Begin);
 
             return false;
