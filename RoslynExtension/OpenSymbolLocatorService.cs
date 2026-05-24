@@ -20,8 +20,6 @@ internal sealed class VSCodeSourceLinkServiceFactory() : IWorkspaceServiceFactor
     public IWorkspaceService CreateService(HostWorkspaceServices workspaceServices) => new OpenSymbolLocatorService();
 }
 
-[Export(typeof(ISourceLinkService)), Shared] // Remove this in the future if the vs code c# extension uses the new roslyn version
-[method: ImportingConstructor] // Remove this in the future if the vs code c# extension uses the new roslyn version
 internal sealed class OpenSymbolLocatorService() : ISourceLinkService, IWorkspaceService // Remove this in the future if a new Microsoft.CodeAnalysis.Features is released (there ISourceLinkService implements IWorkspaceService)
 {
     public async Task<PdbFilePathResult?> GetPdbFilePathAsync(string dllPath, PEReader peReader, bool useDefaultSymbolServers, CancellationToken cancellationToken)
